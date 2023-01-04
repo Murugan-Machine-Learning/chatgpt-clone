@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatGPT</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Container for the chatbot interface -->
+    <div class="container mt-5">
+        <!-- Title -->
+        <h1 class="text-center mb-5">Build Yo'own ChatGPT with OpenAI API & Gradio</h1>
+
+        <!-- Row for the chatbot window and message input -->
+        <div class="row">
+            <!-- Chatbot window -->
+            <div class="col-8">
+                <div id="chatbot" class="bg-light p-3 rounded"></div>
+            </div>
+            <!-- Message input -->
+            <div class="col-4">
+                <form id="message-form">
+                    <!-- Message textbox -->
+                    <div class="form-group">
+                        <textarea class="form-control" id="message" placeholder="" rows="5" cols="50" maxlength="500">Text here</textarea>
+                        <!-- <input type="text" class="form-control" id="message" placeholder="{{ prompt }}"> -->
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block">SEND</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        // Bind a submit event handler to the message form
+        $('#message-form').submit(function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Get the message from the textbox
+            var message = $('#message').val();
+
+            // Send the message to the server
+            $.ajax({
+                url: '/api/send-message',
+                method: 'POST',
+                data: { message: message },
+                success: function(response) {
+                    // Update the chatbot window with the response
+                    document.getElementById("chatbot").innerHTML = response;
+
+                    // $('#chatbot').html('<p>' + response + '</p>');
+                }
+            });
+        });
+    </script>

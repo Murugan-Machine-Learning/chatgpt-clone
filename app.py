@@ -6,7 +6,7 @@ import gradio as gr
 #openai.api_key = os.getenv("OPENAI_API_KEY")
 
 #if you have OpenAI API key as a string, enable the below
-openai.api_key = "xxxxxx"
+openai.api_key = "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"
 
 start_sequence = "\nAI:"
 restart_sequence = "\nHuman: "
@@ -16,18 +16,17 @@ prompt = "The following is a conversation with an AI assistant. The assistant is
 def openai_create(prompt):
 
     response = openai.Completion.create(
-    model="text-davinci-003",
-    prompt=prompt,
-    temperature=0.9,
-    max_tokens=150,
-    top_p=1,
-    frequency_penalty=0,
-    presence_penalty=0.6,
-    stop=[" Human:", " AI:"]
+        model="text-davinci-003",
+        prompt=prompt,
+        temperature=0.9,
+        max_tokens=150,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0.6,
+        stop=[" Human:", " AI:"]
     )
 
     return response.choices[0].text
-
 
 
 def chatgpt_clone(input, history):
